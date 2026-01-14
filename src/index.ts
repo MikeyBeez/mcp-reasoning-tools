@@ -149,6 +149,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ['answer', 'expected_format'],
         },
       },
+      {
+        name: 'help',
+        description: 'Get comprehensive documentation for all reasoning tools functions',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      }
     ],
   };
 });
@@ -176,6 +184,92 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       
       case 'format_validate':
         return await validateFormat(args.answer, args.expected_format, args.options);
+      
+      case 'help':
+        const helpText = `
+# 🧠 Reasoning Tools - Systematic Computational Verification
+
+## Purpose
+Tool-augmented reasoning MCP server for systematic computational verification and enhanced agent capabilities. Reduces reasoning errors through systematic verification protocols.
+
+## Available Tools
+
+### boolean_evaluate
+Systematically evaluate boolean expressions with step-by-step verification:
+- **expression**: Boolean expression to evaluate (e.g., "True and False or not True")
+- Returns detailed step-by-step evaluation with final result
+
+### date_calculate
+Perform date arithmetic with computational verification:
+- **base_date**: Starting date in YYYY-MM-DD format
+- **offset_days**: Number of days to add/subtract  
+- **operation**: Date operation description (optional)
+- **format**: Output format (default: MM/DD/YYYY)
+- Returns calculated date with verification steps
+
+### object_count
+Systematically count objects by category with verification:
+- **items**: List of items to categorize and count
+- **target_category**: Category to count (e.g., "animals", "fruits", "instruments")
+- Returns categorized items with count verification
+
+### state_track
+Track object positions through a series of swaps/moves:
+- **initial_state**: Initial positions/assignments (object)
+- **operations**: Sequence of operations to apply (array)
+- Returns final state with step-by-step tracking
+
+### systematic_verify
+Apply 6-step systematic reasoning protocol to any problem:
+- **problem**: Problem statement to analyze systematically
+- **problem_type**: Type of reasoning problem (boolean, temporal, counting, deduction, spatial)
+- Returns comprehensive systematic analysis
+
+### format_validate  
+Validate answer format and convert to expected format:
+- **answer**: Raw answer to validate
+- **expected_format**: Expected format (multiple_choice, number, date, boolean)
+- **options**: Multiple choice options if applicable
+- Returns validated and formatted answer
+
+## Systematic Verification Protocol
+
+### 6-Step Process:
+1. **Problem Understanding**: Parse and clarify the problem
+2. **Information Extraction**: Identify key data and constraints
+3. **Method Selection**: Choose appropriate reasoning approach
+4. **Step-by-Step Solution**: Execute with verification at each step
+5. **Result Validation**: Check answer against problem requirements
+6. **Format Compliance**: Ensure answer meets expected format
+
+## Use Cases
+- **Complex Boolean Logic**: Evaluate multi-part logical expressions
+- **Date Calculations**: Handle business days, weekends, holidays
+- **Counting Problems**: Categorize and count with verification
+- **State Tracking**: Follow object movements through multiple steps
+- **Answer Validation**: Ensure responses match expected formats
+- **Systematic Analysis**: Apply rigorous reasoning protocols
+
+## Error Reduction
+- **Computational Verification**: All calculations double-checked
+- **Step-by-Step Tracking**: Each reasoning step validated
+- **Format Validation**: Answers guaranteed to match requirements
+- **Systematic Protocols**: Consistent approach reduces oversight
+
+## Integration Benefits
+- **GAIA Benchmark Optimization**: Designed for evaluation scenarios
+- **Multi-Choice Handling**: Proper format validation for selections
+- **Date Arithmetic**: Handles complex temporal calculations
+- **Logical Reasoning**: Systematic boolean expression evaluation
+
+The reasoning tools provide computational backing for complex reasoning tasks, reducing errors through systematic verification and ensuring answer format compliance.
+`;
+        return {
+          content: [{ 
+            type: 'text',
+            text: helpText
+          }]
+        };
       
       default:
         throw new Error(`Unknown tool: ${name}`);
