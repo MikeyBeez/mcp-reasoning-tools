@@ -150,7 +150,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         },
       },
       {
-        name: 'reasoning_help',
+        name: 'help',
         description: 'Get comprehensive documentation for all reasoning tools functions',
         inputSchema: {
           type: 'object',
@@ -185,7 +185,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'format_validate':
         return await validateFormat(args.answer, args.expected_format, args.options);
       
-      case 'reasoning_help':
+      case 'help':
         const helpText = `
 # 🧠 Reasoning Tools - Systematic Computational Verification
 
