@@ -24,7 +24,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: 'boolean_evaluate',
-        description: 'Systematically evaluate boolean expressions with step-by-step verification',
+        description: 'Evaluate a boolean expression by actually computing it, and show each step. WHY BOTHER: chained and/or/not with precedence is a place confident reasoning quietly goes wrong, and this cannot be talked into a wrong answer. Use it whenever the truth of a compound condition MATTERS -- a permission check, a guard clause, a claim about when something fires -- rather than asserting the result from reading it.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -38,7 +38,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'date_calculate',
-        description: 'Perform date arithmetic with computational verification',
+        description: 'Do date arithmetic by computing it -- days between dates, adding or subtracting intervals, weekday of a date. USE IT INSTEAD OF WORKING IT OUT: date math done in the head is a known and repeated failure, including in this very system, where elapsed time was estimated from a clock read earlier in the session and was wrong by more than four hours. Anything involving how long ago something happened goes through here or through a real clock reading.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -65,7 +65,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'object_count',
-        description: 'Systematically count objects by category with verification',
+        description: 'Count items by category, computationally, and show the tally. Use it when a COUNT IS BEING REPORTED AS A FACT -- how many servers, how many failing tests, how many files affected. Counting by eye from a long list is unreliable and has produced wrong numbers here that were then repeated for days.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -84,7 +84,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'state_track',
-        description: 'Track object positions through a series of swaps/moves',
+        description: 'Track where things end up after a sequence of swaps or moves, computing each step. Use it for any multi-step rearrangement where the final state matters and holding it in the head would be guesswork -- who has what after a series of exchanges, where a value lands after several reassignments.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -109,7 +109,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'systematic_verify',
-        description: 'Apply 6-step systematic reasoning protocol to any problem',
+        description: 'Force a problem through a fixed six-step analysis instead of jumping to an answer. Use it when the FIRST ANSWER FEELS OBVIOUS BUT THE STAKES ARE HIGH, or when a previous attempt was confidently wrong -- its value is slowing down exactly the reasoning that is most likely to skip a step. Not for simple lookups, where it only adds noise.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -128,7 +128,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'format_validate',
-        description: 'Validate answer format and convert to expected format',
+        description: 'Check that an answer is in the shape it is supposed to be (multiple choice, number, date, boolean) and convert it if not. Use it at the end of a task with a required output format, where being RIGHT but in the wrong shape still counts as wrong.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -151,7 +151,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'reasoning_help',
-        description: 'Get comprehensive documentation for all reasoning tools functions',
+        description: 'Full documentation for every tool in this server. The short version: these exist to COMPUTE things that are tempting to assert -- booleans, dates, counts, positions. Reach for one whenever being confidently wrong would be expensive.',
         inputSchema: {
           type: 'object',
           properties: {}
